@@ -1,16 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ClientesService } from '../../services/clientes';
 
 @Component({
   selector: 'app-clientes-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './clientes-list.html',
   styleUrl: './clientes-list.css',
 })
+
 export class ClientesList {
-  Clientes=[
-    {codigo: 'C001', nombre: 'Juan Perez', dui: '12345678-9', telefono: '5555-1234', estado: 'Activo'},
-    {codigo: 'C002', nombre: 'Maria Lopez', dui: '98765432-1', telefono: '5555-5678', estado: 'Inactivo'},
-    {codigo: 'C003', nombre: 'Carlos Gomez', dui: '45678912-3', telefono: '5555-9012', estado: 'Activo'},
-  ]
+
+  clientes: any[] = [];
+  
+  constructor(private clienteService: ClientesService){}
+
+  ngOnInit(){
+    this.clientes = this.clienteService.getClientes();
+  }
 }
